@@ -5,6 +5,7 @@ import com.dfilippov.practice.dto.OrganizationListRequest;
 import com.dfilippov.practice.dto.OrganizationListResponse;
 import com.dfilippov.practice.dto.OrganizationSaveRequest;
 import com.dfilippov.practice.entity.OrganizationEntity;
+import com.dfilippov.practice.exception.CustomException;
 import com.dfilippov.practice.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,5 +41,13 @@ public class OrganizationService {
         return ObjectMapper.mapAll(organizationRepository.findAll(OrganizationRepository.hasNameLike(organizationListRequest.getName())
                 .or(OrganizationRepository.hasInn(organizationListRequest.getInn()))
                 .or(OrganizationRepository.hasActive(organizationListRequest.getIsActive()))), OrganizationListResponse.class);
+    }
+
+    public OrganizationAllParamsDto getOrganization(Long id) throws CustomException {
+        OrganizationAllParamsDto organizaton = ObjectMapper.map(organizationRepository.findById(id), OrganizationAllParamsDto.class);
+        if(organizaton==null){
+            throw new CustomException("Не удалось найти данную организацию");
+        }
+        return organizaton;
     }
 }
