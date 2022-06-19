@@ -4,6 +4,7 @@ import com.dfilippov.practice.dto.OrganizationAllParamsDto;
 import com.dfilippov.practice.dto.OrganizationListRequest;
 import com.dfilippov.practice.dto.OrganizationSaveRequest;
 import com.dfilippov.practice.entity.OrganizationEntity;
+import com.dfilippov.practice.exception.CustomException;
 import com.dfilippov.practice.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,17 @@ public class OrganizationController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
+    @GetMapping("/{id}")
+    private ResponseEntity organizationFind(@PathVariable Long id){
+        try{
+            return ResponseEntity.ok(organizationService.getOrganization(id));
+        }catch (CustomException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 
