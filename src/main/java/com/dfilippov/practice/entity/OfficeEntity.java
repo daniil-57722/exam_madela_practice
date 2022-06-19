@@ -16,7 +16,8 @@ import java.util.List;
 @Setter
 public class OfficeEntity {
     @Id
-    private Long office_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long officeId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "office")
     private List<UserEntity> users;
     private String name;

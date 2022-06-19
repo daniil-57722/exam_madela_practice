@@ -1,4 +1,7 @@
 package com.dfilippov.practice.repository;
 
-public interface OfficeRepository {
+import com.dfilippov.practice.entity.OfficeEntity;
+import org.springframework.data.repository.CrudRepository;
+
+public interface OfficeRepository extends CrudRepository<OfficeEntity, Long> {
 }
