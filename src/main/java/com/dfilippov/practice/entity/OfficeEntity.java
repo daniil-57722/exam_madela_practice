@@ -21,7 +21,7 @@ public class OfficeEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "office")
     private List<UserEntity> users;
     private String name;
-    private String Address;
+    private String address;
     private String phone;
     private Boolean active;
     @ManyToOne
