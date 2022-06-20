@@ -7,7 +7,9 @@ import com.dfilippov.practice.dto.OrganizationSaveRequest;
 import com.dfilippov.practice.entity.OrganizationEntity;
 import com.dfilippov.practice.exception.CustomException;
 import com.dfilippov.practice.repository.OrganizationRepository;
+import com.dfilippov.practice.specification.OrganizationSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -38,16 +40,16 @@ public class OrganizationService {
         }
     }
     public List<OrganizationListResponse> getFilteredList(OrganizationListRequest organizationListRequest) {
-        return ObjectMapper.mapAll(organizationRepository.findAll(OrganizationRepository.hasNameLike(organizationListRequest.getName())
-                .or(OrganizationRepository.hasInn(organizationListRequest.getInn()))
-                .or(OrganizationRepository.hasActive(organizationListRequest.getIsActive()))), OrganizationListResponse.class);
+        Specification<OrganizationEntity> spec= OrganizationSpecification.createSpecification(organizationListRequest.getName(), organizationListRequest.getInn(), organizationListRequest.getIsActive());
+        List<OrganizationEntity> organizations = organizationRepository.findAll(spec);
+        return ObjectMapper.mapAll(organizations, OrganizationListResponse.class);
     }
 
     public OrganizationAllParamsDto getOrganization(Long id) throws CustomException {
-        OrganizationAllParamsDto organizaton = ObjectMapper.map(organizationRepository.findById(id), OrganizationAllParamsDto.class);
-        if(organizaton==null){
+        OrganizationAllParamsDto organization = ObjectMapper.map(organizationRepository.findById(id), OrganizationAllParamsDto.class);
+        if(organization==null){
             throw new CustomException("Не удалось найти данную организацию");
         }
-        return organizaton;
+        return organization;
     }
 }
