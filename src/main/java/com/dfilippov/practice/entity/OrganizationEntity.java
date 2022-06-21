@@ -1,5 +1,6 @@
 package com.dfilippov.practice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class OrganizationEntity {
     private String address;
     private String phone;
     private Boolean isActive;
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization")
     private List<OfficeEntity> offices;
 }
