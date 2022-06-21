@@ -1,7 +1,8 @@
 package com.dfilippov.practice.service;
 
+import com.dfilippov.practice.dto.OfficeFindByIdResponse;
 import com.dfilippov.practice.dto.OfficeSaveRequest;
-import com.dfilippov.practice.dto.OfficeUpdateRequest;
+import com.dfilippov.practice.dto.OfficeAllArgsDto;
 import com.dfilippov.practice.entity.OfficeEntity;
 import com.dfilippov.practice.entity.OrganizationEntity;
 import com.dfilippov.practice.repository.OfficeRepository;
@@ -31,7 +32,7 @@ public class OfficeService {
         }
     }
 
-    public ResponseEntity updateOffice(OfficeUpdateRequest updateRequest) {
+    public ResponseEntity updateOffice(OfficeAllArgsDto updateRequest) {
         try{
             OfficeEntity office = ObjectMapper.map(updateRequest, OfficeEntity.class);
             OrganizationEntity organization = organizationRepository.findById(updateRequest.getOrganizationId()).orElse(null);
@@ -43,6 +44,18 @@ public class OfficeService {
             return ResponseEntity.ok("Оффис успешно обновлен");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Во время добавления произошла ошибка");
+        }
+    }
+
+    public ResponseEntity getOffice(Long id) {
+        try{
+            OfficeEntity office = officeRepository.findById(id).orElse(null);
+            if(office == null){
+                return ResponseEntity.badRequest().body("Не удалось найти данный офис");
+            }
+            return ResponseEntity.ok(ObjectMapper.map(office, OfficeFindByIdResponse.class));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
         }
     }
 }
