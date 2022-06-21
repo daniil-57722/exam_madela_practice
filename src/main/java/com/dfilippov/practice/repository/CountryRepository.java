@@ -1,4 +1,8 @@
 package com.dfilippov.practice.repository;
 
-public interface CountryRepository {
+import com.dfilippov.practice.entity.CountryEntity;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CountryRepository extends CrudRepository<CountryEntity, Long> {
+
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "documents")
@@ -15,11 +16,8 @@ import javax.persistence.*;
 @Setter
 public class DocEntity {
     @Id
-    private Long doc_id;
+    private Long doc_code;
     private String doc_name;
-    private String doc_code;
-    private String doc_number;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "doc")
+    private List<UserEntity> users;
 }

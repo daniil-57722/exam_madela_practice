@@ -16,16 +16,18 @@ import javax.persistence.*;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long user_id;
+    private Long userId;
     private String firstname;
     private String lastname;
     private String middlename;//прикольное название придумали. это типо отчество? даже если нет то уже поздно =P
     private String phone;
-    private String doc_code;
     private String login;
     private String password;
     private String code;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private String docNumber;
+    private String docDate;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "doc_code")
     private DocEntity doc;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "country_id")
