@@ -1,4 +1,7 @@
 package com.dfilippov.practice.repository;
 
-public interface DocRepository {
+import com.dfilippov.practice.entity.DocEntity;
+import org.springframework.data.repository.CrudRepository;
+
+public interface DocRepository extends CrudRepository<DocEntity, Long> {
 }
