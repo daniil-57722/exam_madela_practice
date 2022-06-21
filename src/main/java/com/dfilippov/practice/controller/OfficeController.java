@@ -1,7 +1,7 @@
 package com.dfilippov.practice.controller;
 
 import com.dfilippov.practice.dto.OfficeSaveRequest;
-import com.dfilippov.practice.dto.OfficeUpdateRequest;
+import com.dfilippov.practice.dto.OfficeAllArgsDto;
 import com.dfilippov.practice.service.OfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +21,17 @@ public class OfficeController {
         }
     }
     @PostMapping("/update")
-    public ResponseEntity updateOffice(@RequestBody OfficeUpdateRequest updateRequest){
+    public ResponseEntity updateOffice(@RequestBody OfficeAllArgsDto updateRequest){
         try{
             return officeService.updateOffice(updateRequest);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity getOfficeById(@PathVariable Long id){
+        try{
+            return officeService.getOffice(id);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

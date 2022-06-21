@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class OfficeUpdateRequest {
+public class OfficeAllArgsDto {
     private Long officeId;
     private String name;
     private String address;
