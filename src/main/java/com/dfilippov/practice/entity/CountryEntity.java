@@ -16,8 +16,8 @@ import java.util.List;
 @Setter
 public class CountryEntity {
     @Id
-    private Long country_id;
-    private String country_name;
+    private Long countryId;
+    private String countryName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
     private List<UserEntity> users;
 }

@@ -16,8 +16,8 @@ import java.util.List;
 @Setter
 public class DocEntity {
     @Id
-    private Long doc_code;
-    private String doc_name;
+    private Long docCode;
+    private String docName;
     @OneToMany(cascade = CascadeType.DETACH, mappedBy = "doc")
     private List<UserEntity> users;
 }
